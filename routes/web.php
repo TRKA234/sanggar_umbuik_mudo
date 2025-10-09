@@ -8,6 +8,8 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\GalleryController;
+
 
 
 // Landing Page (bisa diakses siapa saja)
@@ -51,6 +53,10 @@ Route::prefix('admin')
         // resources untuk modul lain (belum dibuat) - contoh:
         Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
         Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
+        Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('galleries', GalleryController::class);
+        });
+        
 
         // resource routes (skeleton)
 
