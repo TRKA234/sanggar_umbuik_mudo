@@ -3,63 +3,92 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // ✅ Menampilkan daftar semua event
     public function index()
     {
-        //
+        $events = Event::latest()->paginate(10);
+        return view('admin.events.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // ✅ Menampilkan form tambah event
     public function create()
     {
-        //
+        return view('admin.events.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // ✅ Simpan event baru
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'start_at' => 'nullable|date',
+            'end_at' => 'nullable|date|after_or_equal:start_at',
+            'location' => 'nullable|string|max:255',
+            'fee' => 'nullable|numeric',
+            'cover' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('cover')) {
+            $validated['cover'] = $request->file('cover')->store('events', 'public');
+        }
+
+        Event::create($validated);
+
+        return redirect()->route('admin.events.index')->with('success', 'Agenda kegiatan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // ✅ Menampilkan form edit event
+    public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        return view('admin.events.edit', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // ✅ Update event
+    public function update(Request $request, $id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'start_at' => 'nullable|date',
+            'end_at' => 'nullable|date|after_or_equal:start_at',
+            'location' => 'nullable|string|max:255',
+            'fee' => 'nullable|numeric',
+            'cover' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('cover')) {
+            if ($event->cover) {
+                Storage::disk('public')->delete($event->cover);
+            }
+            $validated['cover'] = $request->file('cover')->store('events', 'public');
+        }
+
+        $event->update($validated);
+
+        return redirect()->route('admin.events.index')->with('success', 'Agenda kegiatan berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // ✅ Hapus event
+    public function destroy($id)
     {
-        //
-    }
+        $event = Event::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if ($event->cover) {
+            Storage::disk('public')->delete($event->cover);
+        }
+
+        $event->delete();
+
+        return redirect()->route('admin.events.index')->with('success', 'Agenda kegiatan berhasil dihapus.');
     }
 }

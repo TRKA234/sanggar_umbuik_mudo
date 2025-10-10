@@ -31,7 +31,7 @@
 
     <!-- Kanan: Gambar -->
     <div class="flex justify-center">
-      <img src="{{ asset('images/logo.png') }}" alt="Hero Sanggar" class="w-full max-w-xs rounded-lg shadow-lg">
+      <img src="{{ asset('images/logo1.png') }}" alt="Hero Sanggar" class="w-full max-w-xs rounded-lg shadow-lg">
   </div>
 </section>
 
