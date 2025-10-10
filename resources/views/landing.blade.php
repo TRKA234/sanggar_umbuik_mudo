@@ -72,10 +72,12 @@
 <section id="galeri" class="container mx-auto px-6 py-20">
   <h2 class="text-3xl font-bold text-center mb-10">Galeri</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    @forelse($gallery as $g)
-      <img src="{{ $g }}" class="w-full h-48 object-cover rounded-lg shadow">
+    @forelse($galleries as $g)
+    <img src="{{ asset('storage/' . $g->image_path) }}"
+        alt="{{ $g->title }}"
+        class="w-full h-48 object-cover rounded-lg shadow">
     @empty
-      <p class="col-span-4 text-center text-gray-500">Belum ada galeri.</p>
+    <p class="col-span-4 text-center text-gray-500">Belum ada galeri.</p>
     @endforelse
   </div>
 </section>

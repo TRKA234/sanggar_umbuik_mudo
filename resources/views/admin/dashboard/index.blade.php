@@ -53,6 +53,20 @@
                     </div>
                 </div>
             </div>
+
+        <div class="col-sm-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Galeri</h6>
+                    <div class="d-flex align-items-center">
+                        <h3 class="me-auto">{{ $stats['galleries'] ?? 0 }}</h3>
+                        <div><span class="badge bg-info">Total</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
         </div>
 
         <!-- Placeholder sections -->
