@@ -113,7 +113,7 @@
         <!-- Sidebar -->
         <nav id="sidebarMenu" class="sidebar p-3">
             <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center mb-4 text-decoration-none">
-                <img src="{{ asset('logo.png') }}" alt="logo" class="me-10" style="width:50px;">
+                <img src="{{ asset('logo1.png') }}" alt="logo" class="me-10" style="width:50px;">
                 <span class="fw-bold fs-5 text-dark">Sanggar Umbuik Mudo</span>
             </a>
 
