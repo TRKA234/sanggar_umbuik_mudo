@@ -137,6 +137,9 @@
                 <li><a href="{{ route('admin.events.index') }}"
                         class="nav-link {{ request()->routeIs('admin.events*') ? 'active' : '' }}">Agenda</a></li>
 
+        <li><a href="{{ route('admin.reports.index') }}"
+            class="nav-link {{ request()->routeIs('admin.reports*') ? 'active' : '' }}">Laporan</a></li>
+
                 <li><a href="{{ route('admin.certificates.index') }}"
                         class="nav-link {{ request()->routeIs('admin.certificates*') ? 'active' : '' }}">Sertifikat</a>
                 </li>
