@@ -56,7 +56,7 @@ Route::prefix('admin')
         Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('galleries', GalleryController::class);
         });
-        
+
 
         // resource routes (skeleton)
 
@@ -69,6 +69,10 @@ Route::prefix('admin')
         Route::resource('galleries', \App\Http\Controllers\Admin\GalleryController::class);
         Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        // Simple reports page (uses dummy data until orders module is ready)
+        Route::get('reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
+        Route::get('reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'exportCsv'])->name('reports.export');
+        Route::get('reports/pdf', [\App\Http\Controllers\Admin\ReportController::class, 'exportPdf'])->name('reports.pdf');
     });
 
 Route::post('/admin/news/upload', [NewsController::class, 'uploadImage'])
