@@ -17,6 +17,24 @@
       </div>
 
       <div>
+        <label class="block mb-1 font-medium">Kota (opsional)</label>
+        <input type="text" name="kota" value="{{ old('kota') }}"
+               class="w-full p-3 rounded border @error('kota') border-red-500 @enderror">
+        @error('kota')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium">Rating (1-5, opsional)</label>
+        <select name="rating" class="w-full p-3 rounded border @error('rating') border-red-500 @enderror">
+          <option value="">-- Pilih --</option>
+          @for ($i = 1; $i <= 5; $i++)
+            <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>{{ $i }}</option>
+          @endfor
+        </select>
+        @error('rating')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+      </div>
+
+      <div>
         <label class="block mb-1 font-medium">Pesan</label>
         <textarea name="pesan" rows="4"
                   class="w-full p-3 rounded border @error('pesan') border-red-500 @enderror">{{ old('pesan') }}</textarea>

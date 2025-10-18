@@ -113,7 +113,7 @@
         <!-- Sidebar -->
         <nav id="sidebarMenu" class="sidebar p-3">
             <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center mb-4 text-decoration-none">
-                <img src="{{ asset('logo1.png') }}" alt="logo" class="me-10" style="width:50px;">
+                <img src="{{ asset('/images/logo.png') }}" alt="logo" class="me-10" style="width:50px;">
                 <span class="fw-bold fs-5 text-dark">Sanggar Umbuik Mudo</span>
             </a>
 
@@ -137,8 +137,8 @@
                 <li><a href="{{ route('admin.events.index') }}"
                         class="nav-link {{ request()->routeIs('admin.events*') ? 'active' : '' }}">Agenda</a></li>
 
-        <li><a href="{{ route('admin.reports.index') }}"
-            class="nav-link {{ request()->routeIs('admin.reports*') ? 'active' : '' }}">Laporan</a></li>
+                <li><a href="{{ route('admin.reports.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.reports*') ? 'active' : '' }}">Laporan</a></li>
 
                 <li><a href="{{ route('admin.certificates.index') }}"
                         class="nav-link {{ request()->routeIs('admin.certificates*') ? 'active' : '' }}">Sertifikat</a>
@@ -169,46 +169,41 @@
                 <button class="menu-toggle d-lg-none" onclick="toggleSidebar()">☰</button>
                 <h5 class="mb-0">@yield('page-title', 'Dashboard')</h5>
 
-                <!-- Settings Dropdown -->
                 <!-- Settings Dropdown dengan Foto Profil -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <button
-                                class="d-flex align-items-center px-3 py-2 border border-transparent rounded bg-white text-secondary hover-text-dark"
-                                style="gap: 8px;">
-                                <img src="{{ Auth::user()->profile_photo_url ?? asset('default-avatar.png') }}"
-                                    alt="avatar" class="rounded-circle" width="32" height="32"
-                                    style="object-fit: cover;">
-                                <span class="fw-medium">{{ Auth::user()->name }}</span>
-                                <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </x-slot>
+                    <div class="dropdown">
+                        <button class="d-flex align-items-center border-0 bg-white px-2 py-1 rounded"
+                            id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="gap: 8px; cursor: pointer;">
+                            <img src="{{ Auth::user()->profile_photo_url ?? asset('/images/avatar.png') }}" alt="avatar"
+                                class="rounded-circle" width="36" height="36" style="object-fit: cover;">
+                            <span class="fw-medium">{{ Auth::user()->name }}</span>
+                            <i class="bi bi-caret-down-fill ms-1"></i>
+                        </button>
 
-                        <x-slot name="content">
-                            <div class="px-3 py-2 border-bottom">
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li class="px-3 py-2 border-bottom">
                                 <div class="fw-semibold">{{ Auth::user()->name }}</div>
                                 <small class="text-muted">{{ Auth::user()->email }}</small>
-                            </div>
+                            </li>
 
-                            <x-dropdown-link :href="route('profile.edit')">
-                                <i class="bi bi-person me-2"></i> {{ __('Profile') }}
-                            </x-dropdown-link>
+                            {{-- <li>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                    <i class="bi bi-person me-2"></i> Profile
+                                </a>
+                            </li> --}}
 
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
-                                    <i class="bi bi-box-arrow-right me-2 text-danger"></i> {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right me-2"></i> Log Out
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
 
 
