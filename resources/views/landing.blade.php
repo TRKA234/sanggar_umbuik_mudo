@@ -22,7 +22,7 @@
         <a href="#kontak" class="px-6 py-3 border border-black text-black rounded-lg font-semibold hover:bg-black hover:text-white">
             Hubungi Kami
         </a>
-        <a href="{{ auth()->check() ? route('pesan.form') : route('register.form') }}"
+        <a href="{{ auth()->check() ? route('user.pesanan.create') : route('register.form') }}"
             class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg font-semibold text-white">
             Pesan Sekarang
         </a>
@@ -91,13 +91,16 @@
           <div class="bg-white p-6 rounded-lg shadow">
             <p class="text-gray-700 italic">"{{ $t->pesan }}"</p>
             <p class="mt-4 font-semibold text-yellow-600">- {{ $t->nama }}</p>
+            @if($t->rating)
+                <p class="text-yellow-500 mt-2">Rating: {{ $t->rating }}/5</p>
+            @endif
           </div>
         @empty
           <p class="col-span-3 text-center text-gray-500">Belum ada testimoni.</p>
         @endforelse
       </div>
       <div class="text-center">
-        <a href="{{ route('testimoni.create') }}"
+        <a href="{{ route('user.testimoni.create') }}"
            class="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">
           Beri Testimoni
         </a>
@@ -114,14 +117,14 @@
         <p>Telepon: 0812-3456-7890</p>
         <p>Email: info@sanggarumbuikmudo.com</p>
       </div>
-      <form class="space-y-4">
+      {{-- <form class="space-y-4">
         <input type="text" placeholder="Nama" class="w-full p-3 rounded text-gray-800">
         <input type="email" placeholder="Email" class="w-full p-3 rounded text-gray-800">
         <textarea placeholder="Pesan" class="w-full p-3 rounded text-gray-800"></textarea>
         <button type="submit" class="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600">
           Kirim
         </button>
-      </form>
+      </form> --}}
     </div>
   </section>
 @endsection

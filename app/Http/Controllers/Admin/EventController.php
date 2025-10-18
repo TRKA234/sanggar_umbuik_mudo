@@ -51,6 +51,13 @@ class EventController extends Controller
         return view('admin.events.edit', compact('event'));
     }
 
+    // ✅ Tampilkan detail event
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('admin.events.show', compact('event'));
+    }
+
     // ✅ Update event
     public function update(Request $request, $id)
     {
